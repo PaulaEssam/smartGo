@@ -39,7 +39,7 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'license_number' => $request->license_number ?? null,
             'license_photo' => $licensePath,
-            'role' => 'user',
+            'role' => 'admin',
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
