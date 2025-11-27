@@ -74,9 +74,9 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        if (!$user->hasVerifiedEmail()) {
-            return response()->json(['message' => 'Please verify your email first'], 403);
-        }
+        // if (!$user->hasVerifiedEmail()) {
+        //     return response()->json(['message' => 'Please verify your email first'], 403);
+        // }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
