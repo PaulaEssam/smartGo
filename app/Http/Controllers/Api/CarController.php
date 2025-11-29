@@ -24,10 +24,18 @@ class CarController extends Controller
     //     return response()->json($cars);
     // }
 
-public function index(Request $request)
+    public function index(Request $request)
 {
+    // شيلنا الـ with تمامًا عشان نضمن ما فيش 500 أبدًا
     $cars = Car::where('available', true)
-        ->select('id', 'brand', 'model', 'color', 'plate_number', 'price_per_hour', 'price_per_day', 'price_per_week', 'price_per_month', 'image', 'available')
+        ->select([
+            'id', 'brand', 'model', 'color', 'plate_number',
+            'price_per_hour', 'price_per_day', 'price_per_week', 'price_per_month',
+            'image', 'available'
+        ])
+        ->when($request->brand, fn($q) => $q->where('brand', 'like', '%' . $request->brand . '%'))
+        ->when($request->min_price, fn($q) => $q->where('price_per_hour', '>=', $request->min_price))
+        ->when($request->max_price, fn($q) => $q->where('price_per_hour', '<=', $request->max_price))
         ->get();
 
     return response()->json($cars);
