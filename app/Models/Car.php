@@ -31,8 +31,10 @@ class Car extends Model
         return $this->hasMany(CarLocation::class);
     }
 
-    public function latestLocation()
-    {
-        return $this->hasOne(CarLocation::class)->latestOfMany();
-    }
+    // public function latestLocation()
+    // {
+    //     return $this->hasOne(CarLocation::class)->latestOfMany();
+    // }
+
+
 }
